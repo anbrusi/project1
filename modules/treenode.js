@@ -1,9 +1,31 @@
 class TreeNode {
-    constructor(txt) {
-        this.parent = null;
-        this.txt = txt;
+    constructor() {
+        this.uid = undefined;
+        this.txt = undefined;
+        this.order = undefined;
         this.expanded = false;
-        console.log('Created tree node: ' + this.txt);
+        this.subtree = null;
+        console.log('Constructed tree node: ');
+    }
+    /**
+     * Loads properties uid, parent, txt, defined in descriptor
+     * 
+     * @param {object} descriptor 
+     */
+    load( descriptor ) {
+        this.uid = descriptor.uid;
+        this.txt = descriptor.txt;
+        this.order = descriptor.order;
+    }
+    /**
+     * Creates and returns a TreeNode as specified by descriptor
+     * 
+     * @param {object} descriptor 
+     */
+    create( descriptor ) {
+        let node = new TreeNode();
+        node.load(descriptor);
+        return node;
     }
     expand() {
         this.expanded = true;
@@ -12,6 +34,12 @@ class TreeNode {
     collapse() {
         this.expanded = false;
         console.log('collapsed TreeNode ' + this.txt);
+    }
+    html() {
+        let node = document.createElement('li');
+        let text = this.order + ': [' + this.uid + '] ' + this.txt;
+        node.appendChild( document.createTextNode(text));
+        return node;
     }
 }
 
